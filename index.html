@@ -8,14 +8,22 @@
     <style>
         :root {
             --bg-color: #050505;
-            --text-main: #ffffff;
-            --text-muted: #d1d5db;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
             --accent-1: #6366f1;
             --accent-2: #a855f7;
-            --glass-bg: rgba(10, 10, 18, 0.35);
-            --glass-border: rgba(255, 255, 255, 0.09);
-            --pill-bg: rgba(168, 85, 247, 0.06);
-            --pill-border: rgba(168, 85, 247, 0.22);
+            
+            /* 95% Transparent Glass */
+            --glass-bg-95: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            
+            /* 50% Frosted Hover State */
+            --glass-hover-50: rgba(12, 12, 22, 0.52);
+            
+            --pill-bg: rgba(255, 255, 255, 0.05);
+            --pill-border: rgba(255, 255, 255, 0.15);
+            --pill-text: #cbd5e1;
+            
             --accent-gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2));
         }
 
@@ -51,7 +59,7 @@
             pointer-events: none;
         }
 
-        /* Minimal Subtle Vignette */
+        /* Ambient Neutral Vignette */
         .canvas-overlay {
             position: fixed;
             top: 0;
@@ -59,7 +67,7 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            background: radial-gradient(circle at center, rgba(5, 5, 8, 0.03) 0%, rgba(5, 5, 8, 0.45) 100%);
+            background: radial-gradient(circle at center, rgba(5, 5, 8, 0.02) 0%, rgba(5, 5, 8, 0.45) 100%);
             pointer-events: none;
         }
 
@@ -67,8 +75,8 @@
         nav {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 16px 4%;
+            align-items: flex-start; /* Clean top alignment */
+            padding: 18px 4%;
             position: sticky;
             top: 0;
             width: 100%;
@@ -87,19 +95,19 @@
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
         }
 
-        /* High-Transparency Capsule Buttons */
+        /* 90-95% Transparent Glass Capsule Nav Buttons */
         .nav-capsule {
-            color: #f1f5f9;
+            color: var(--pill-text);
             text-decoration: none;
-            font-size: 0.88rem;
+            font-size: 0.86rem;
             font-weight: 500;
             letter-spacing: 0.4px;
             padding: 7px 18px;
             border-radius: 50px;
-            background: var(--pill-bg);
+            background: var(--glass-bg-95);
             border: 1px solid var(--pill-border);
             -webkit-backdrop-filter: blur(4px);
             backdrop-filter: blur(4px);
@@ -108,25 +116,25 @@
         }
 
         .nav-capsule:hover {
-            background: rgba(168, 85, 247, 0.22);
-            border-color: var(--accent-2);
+            background: var(--glass-hover-50);
+            border-color: rgba(255, 255, 255, 0.35);
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
         }
 
-        /* Top-Right Profile Avatar Preview */
+        /* Top-Right Profile Avatar */
         .profile-badge-wrapper {
             position: relative;
             z-index: 110;
         }
 
         .profile-avatar-thumb {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(168, 85, 247, 0.5);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
             cursor: pointer;
             transition: transform 0.3s ease, border-color 0.3s ease;
@@ -148,11 +156,11 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
             z-index: 120;
-            background: rgba(10, 10, 20, 0.88);
+            background: rgba(10, 10, 18, 0.92);
             padding: 8px;
             border-radius: 20px;
-            border: 1px solid rgba(168, 85, 247, 0.4);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(168, 85, 247, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(168, 85, 247, 0.25);
             -webkit-backdrop-filter: blur(14px);
             backdrop-filter: blur(14px);
             text-align: center;
@@ -176,11 +184,11 @@
             display: block;
             margin-top: 6px;
             font-size: 0.78rem;
-            color: #c084fc;
+            color: #e2e8f0;
             font-weight: 500;
         }
 
-        /* Contact Me Capsule & Dropdown */
+        /* Matched Neutral Glass Contact Me Button & Dropdown */
         .contact-dropdown-container {
             position: relative;
             display: inline-block;
@@ -188,9 +196,9 @@
 
         .contact-btn-trigger {
             cursor: pointer;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.28), rgba(168, 85, 247, 0.32));
-            border: 1px solid rgba(168, 85, 247, 0.45);
-            color: #ffffff;
+            background: var(--glass-bg-95);
+            border: 1px solid var(--pill-border);
+            color: #f1f5f9;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -199,8 +207,9 @@
         }
 
         .contact-btn-trigger:hover {
-            box-shadow: 0 4px 18px rgba(168, 85, 247, 0.4);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(168, 85, 247, 0.45));
+            background: var(--glass-hover-50);
+            border-color: rgba(255, 255, 255, 0.35);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
         }
 
         .dropdown-menu {
@@ -243,6 +252,7 @@
 
         .dropdown-menu a:hover {
             color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .dropdown-menu a.primary-link {
@@ -258,11 +268,7 @@
             box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
         }
 
-        .dropdown-menu a.secondary-link:hover {
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        /* Hero / Header Section: Anchored specifically onto the white t-shirt */
+        /* Hero / Header Section: Anchored over the white shirt */
         header {
             min-height: 72vh;
             display: flex;
@@ -275,30 +281,27 @@
             z-index: 10;
         }
 
+        /* Frosted Glass Typographic Effect on Name */
         header h1 {
             font-size: clamp(2.4rem, 4.8vw, 4rem);
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 8px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
         }
 
-        .gradient-text {
-            background: linear-gradient(to right, var(--accent-1), var(--accent-2), #ff7eb3);
+        .glass-title {
+            color: #ffffff;
+            background: linear-gradient(180deg, #ffffff 30%, rgba(255, 255, 255, 0.65) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: gradientMove 5s linear infinite;
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
+            text-shadow: 0 0 35px rgba(168, 85, 247, 0.4), 0 4px 18px rgba(0, 0, 0, 0.85);
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
+            letter-spacing: -0.5px;
         }
 
         header h2 {
-            color: #f1f5f9;
+            color: #cbd5e1;
             font-size: clamp(0.92rem, 1.6vw, 1.15rem);
             font-weight: 400;
             max-width: 750px;
@@ -316,9 +319,9 @@
 
         .contact-links a {
             display: inline-block;
-            color: var(--text-main);
+            color: var(--pill-text);
             text-decoration: none;
-            background: var(--pill-bg);
+            background: var(--glass-bg-95);
             border: 1px solid var(--pill-border);
             padding: 8px 22px;
             border-radius: 50px;
@@ -330,14 +333,14 @@
         }
 
         .contact-links a:hover {
-            background: rgba(168, 85, 247, 0.25);
-            border-color: var(--accent-2);
+            background: var(--glass-hover-50);
+            border-color: rgba(255, 255, 255, 0.35);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
             color: #ffffff;
         }
 
-        /* Container & Floating Cards */
+        /* Container & Cards: 95% Transparent, 50% Frost on Hover */
         .container {
             width: 100%;
             max-width: min(1100px, 90vw);
@@ -383,37 +386,47 @@
         }
 
         section > p {
-            background: var(--glass-bg);
+            background: var(--glass-bg-95);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: clamp(1.4rem, 2.5vw, 2.2rem);
             color: #e2e8f0;
             font-size: 1.05rem;
             line-height: 1.8;
-            -webkit-backdrop-filter: blur(4px);
-            backdrop-filter: blur(4px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            transition: background 0.35s ease, backdrop-filter 0.35s ease;
+        }
+
+        section > p:hover {
+            background: var(--glass-hover-50);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
         }
 
         .card {
-            background: var(--glass-bg);
+            background: var(--glass-bg-95);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: clamp(1.4rem, 2.5vw, 2.2rem);
             margin-bottom: 24px;
             position: relative;
             overflow: hidden;
-            -webkit-backdrop-filter: blur(4px);
-            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);
             cursor: pointer;
-            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, backdrop-filter 0.35s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
         }
 
         .card:hover {
             transform: translateY(-5px);
-            border-color: rgba(168, 85, 247, 0.4);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65);
+            background: var(--glass-hover-50);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
         }
 
         .card::before {
@@ -425,8 +438,8 @@
             bottom: 0;
             background: radial-gradient(
                 750px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), 
-                rgba(168, 85, 247, 0.22),
-                rgba(99, 102, 241, 0.1) 25%,
+                rgba(168, 85, 247, 0.18),
+                rgba(99, 102, 241, 0.08) 25%,
                 transparent 50%
             );
             z-index: 1;
@@ -499,8 +512,8 @@
 
         .tag {
             display: inline-block;
-            background: var(--pill-bg);
-            color: #f8fafc;
+            background: var(--glass-bg-95);
+            color: #f1f5f9;
             border: 1px solid var(--pill-border);
             padding: 6px 16px;
             border-radius: 50px;
@@ -514,11 +527,11 @@
         }
 
         a.tag:hover {
-            background: rgba(168, 85, 247, 0.25);
-            border-color: var(--accent-2);
+            background: var(--glass-hover-50);
+            border-color: rgba(255, 255, 255, 0.35);
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
         }
 
         .btn {
@@ -543,7 +556,7 @@
             color: white;
         }
 
-        /* Final Art Showcase Buffer: Centered & subtle glass outline */
+        /* Final Art Showcase Buffer: 95% Transparent, 50% on Hover */
         .hero-art-showcase {
             min-height: 75vh;
             display: flex;
@@ -556,7 +569,7 @@
         }
 
         .present-card {
-            background: rgba(5, 5, 10, 0.12);
+            background: var(--glass-bg-95);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 20px;
             padding: 22px 30px;
@@ -564,17 +577,17 @@
             width: 88%;
             text-align: center;
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
-            -webkit-backdrop-filter: blur(0px);
-            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(2px);
+            backdrop-filter: blur(2px);
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .present-card:hover {
-            background: rgba(10, 10, 20, 0.6);
-            border-color: rgba(168, 85, 247, 0.35);
+            background: var(--glass-hover-50);
+            border-color: rgba(255, 255, 255, 0.28);
             -webkit-backdrop-filter: blur(12px);
             backdrop-filter: blur(12px);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.65), 0 0 20px rgba(168, 85, 247, 0.2);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
             transform: translateY(-3px);
         }
 
@@ -620,18 +633,18 @@
         }
 
         .present-btn-secondary {
-            background: var(--pill-bg);
+            background: var(--glass-bg-95);
             border: 1px solid var(--pill-border);
             color: #ffffff;
         }
 
         .present-btn-secondary:hover {
-            background: rgba(168, 85, 247, 0.25);
-            border-color: var(--accent-2);
+            background: var(--glass-hover-50);
+            border-color: rgba(255, 255, 255, 0.35);
             transform: translateY(-2px);
         }
 
-        /* Seamless Transparent Footer */
+        /* Minimal Transparent Footer */
         footer {
             text-align: center;
             padding: 16px 20px 24px;
@@ -718,9 +731,9 @@
         </div>
     </nav>
 
-    <!-- Header Section (Anchored comfortably across the chest area of shirt) -->
+    <!-- Header Section (Anchored on white t-shirt) -->
     <header>
-        <h1><span class="gradient-text">Adarsh G</span></h1>
+        <h1><span class="glass-title">Adarsh G</span></h1>
         <h2>Software Engineer | Machine Learning & Data Science | Computational Intelligence</h2>
         <div class="contact-links">
             <a href="mailto:adarshgandla.tab@gmail.com?subject=Connecting%20via%20your%20Portfolio&body=Hi%20Adarsh,%0A%0AI%20came%20across%20your%20portfolio%20website%20and%20wanted%20to%20reach%20out%20to%20connect.">Email</a>
@@ -880,7 +893,7 @@
         </div>
     </div>
 
-    <!-- Minimal, Seamless Footer -->
+    <!-- Minimal Seamless Footer -->
     <footer>
         <p>&copy; 2026 Adarsh G. All Rights Reserved.</p>
     </footer>
@@ -891,7 +904,6 @@
         const HOLD_BUFFER = 28;  // Virtual steps to hold the final hero pose at the bottom
         const VIRTUAL_TOTAL = TOTAL_FRAMES + HOLD_BUFFER;
 
-        // Points inside the 'Frames/' directory on GitHub
         const getFramePath = (index) => {
             if (index === TOTAL_FRAMES) return 'Frames/Frame-L.webp';
             return `Frames/Frame-${index.toString().padStart(3, '0')}.webp`;
@@ -909,7 +921,6 @@
         }
         window.addEventListener('resize', resizeCanvas);
 
-        // Preload WebP images from Frames/
         for (let i = 1; i <= TOTAL_FRAMES; i++) {
             const img = new Image();
             img.src = getFramePath(i);
@@ -925,7 +936,6 @@
             images.push(img);
         }
 
-        // Draw image using aspect ratio 'cover'
         function drawCover(img) {
             if (!img || !img.complete || img.naturalWidth === 0) return;
 
@@ -955,7 +965,6 @@
             ctx.drawImage(img, offsetX, offsetY, renderWidth, renderHeight);
         }
 
-        // Scrub frames smoothly through document scroll
         function drawCurrentFrame() {
             const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             const scrollProgress = maxScroll > 0 ? Math.min(Math.max(window.scrollY / maxScroll, 0), 1) : 0;
