@@ -12,8 +12,10 @@
             --text-muted: #d1d5db;
             --accent-1: #6366f1;
             --accent-2: #a855f7;
-            --glass-bg: rgba(10, 10, 18, 0.45);
+            --glass-bg: rgba(10, 10, 18, 0.4);
             --glass-border: rgba(255, 255, 255, 0.12);
+            --pill-bg: rgba(168, 85, 247, 0.12);
+            --pill-border: rgba(168, 85, 247, 0.35);
             --accent-gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2));
         }
 
@@ -36,7 +38,7 @@
             min-height: 100vh;
         }
 
-        /* Fixed Persistent Animated Canvas */
+        /* Fixed Persistent Background Canvas */
         #heroCanvas {
             position: fixed;
             top: 0;
@@ -49,7 +51,7 @@
             pointer-events: none;
         }
 
-        /* Subtle Vignette to ensure readability without smudging art */
+        /* Subtle Vignette */
         .canvas-overlay {
             position: fixed;
             top: 0;
@@ -57,42 +59,130 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            background: radial-gradient(circle at center, rgba(5, 5, 8, 0.15) 0%, rgba(5, 5, 8, 0.55) 100%);
+            background: radial-gradient(circle at center, rgba(5, 5, 8, 0.1) 0%, rgba(5, 5, 8, 0.5) 100%);
             pointer-events: none;
         }
 
-        /* Navigation */
+        /* Top Transparent Bar with Capsule Pill Buttons */
         nav {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 2.2rem;
-            padding: 1.2rem 5%;
+            gap: 12px;
+            padding: 18px 5%;
             position: sticky;
             top: 0;
             width: 100%;
             z-index: 100;
-            -webkit-backdrop-filter: blur(8px);
-            backdrop-filter: blur(8px);
-            background: rgba(5, 5, 5, 0.65);
-            border-bottom: 1px solid var(--glass-border);
+            background: transparent;
+            border: none;
         }
 
-        nav a {
-            color: var(--text-muted);
+        .nav-capsule {
+            color: #f1f5f9;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.88rem;
             font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: color 0.3s ease, transform 0.2s ease;
+            letter-spacing: 0.4px;
+            padding: 7px 18px;
+            border-radius: 50px;
+            background: var(--pill-bg);
+            border: 1px solid var(--pill-border);
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        nav a:hover {
-            color: var(--text-main);
-            transform: translateY(-1px);
+        .nav-capsule:hover {
+            background: rgba(168, 85, 247, 0.3);
+            border-color: var(--accent-2);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
         }
 
-        /* Hero / Header */
+        /* Top Contact Me Capsule Dropdown */
+        .contact-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .contact-btn-trigger {
+            cursor: pointer;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(168, 85, 247, 0.3));
+            border: 1px solid rgba(168, 85, 247, 0.55);
+            color: #ffffff;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .contact-btn-trigger:hover {
+            box-shadow: 0 4px 18px rgba(99, 102, 241, 0.5);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(168, 85, 247, 0.45));
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            min-width: 190px;
+            background: rgba(10, 10, 18, 0.85);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 105;
+        }
+
+        .contact-dropdown-container:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-menu a:hover {
+            color: #ffffff;
+        }
+
+        .dropdown-menu a.primary-link {
+            background: rgba(99, 102, 241, 0.25);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .dropdown-menu a.primary-link:hover {
+            background: rgba(99, 102, 241, 0.45);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .dropdown-menu a.secondary-link:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* Hero / Header Section */
         header {
             min-height: 80vh;
             display: flex;
@@ -180,11 +270,11 @@
             display: inline-block;
             color: var(--text-main);
             text-decoration: none;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 9px 22px;
+            background: var(--pill-bg);
+            border: 1px solid var(--pill-border);
+            padding: 8px 22px;
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
             -webkit-backdrop-filter: blur(6px);
             backdrop-filter: blur(6px);
@@ -192,14 +282,14 @@
         }
 
         .contact-links a:hover {
-            background: rgba(168, 85, 247, 0.25);
+            background: rgba(168, 85, 247, 0.3);
             border-color: var(--accent-2);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
             color: #ffffff;
         }
 
-        /* Container & Cards */
+        /* Content Container */
         .container {
             width: 100%;
             max-width: min(1100px, 90vw);
@@ -244,6 +334,7 @@
             border-radius: 3px;
         }
 
+        /* Glass Cards */
         section > p {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
@@ -359,12 +450,13 @@
             margin-bottom: 12px;
         }
 
+        /* Skill Pill Tags */
         .tag {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--pill-bg);
             color: #f8fafc;
-            border: 1px solid var(--glass-border);
-            padding: 6px 14px;
+            border: 1px solid var(--pill-border);
+            padding: 6px 16px;
             border-radius: 50px;
             margin: 0 6px 10px 0;
             font-size: 0.85rem;
@@ -376,11 +468,11 @@
         }
 
         a.tag:hover {
-            background: rgba(99, 102, 241, 0.35);
-            border-color: var(--accent-1);
+            background: rgba(168, 85, 247, 0.3);
+            border-color: var(--accent-2);
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 14px rgba(168, 85, 247, 0.4);
         }
 
         .btn {
@@ -405,10 +497,99 @@
             color: white;
         }
 
+        /* --- FINAL HERO ART SHOWCASE & FLOATING PRESENT CARD --- */
+        .hero-art-showcase {
+            min-height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Fully transparent by default; frosty readable blur on hover */
+        .present-card {
+            background: rgba(5, 5, 10, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 30px 40px;
+            max-width: 580px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            -webkit-backdrop-filter: blur(0px);
+            backdrop-filter: blur(0px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .present-card:hover {
+            background: rgba(10, 10, 20, 0.65);
+            border-color: rgba(168, 85, 247, 0.45);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(168, 85, 247, 0.25);
+            transform: translateY(-4px);
+        }
+
+        .present-card h4 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .present-card p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            margin-bottom: 22px;
+        }
+
+        .present-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .present-btn {
+            display: inline-block;
+            padding: 9px 24px;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .present-btn-primary {
+            background: var(--accent-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .present-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.6);
+        }
+
+        .present-btn-secondary {
+            background: var(--pill-bg);
+            border: 1px solid var(--pill-border);
+            color: #ffffff;
+        }
+
+        .present-btn-secondary:hover {
+            background: rgba(168, 85, 247, 0.3);
+            border-color: var(--accent-2);
+            transform: translateY(-2px);
+        }
+
         footer {
             text-align: center;
-            padding: 40px 20px;
-            background: rgba(5, 5, 5, 0.85);
+            padding: 30px 20px;
+            background: rgba(5, 5, 5, 0.7);
             color: var(--text-muted);
             border-top: 1px solid var(--glass-border);
             font-size: 0.9rem;
@@ -418,12 +599,16 @@
 
         @media (max-width: 768px) {
             nav {
-                gap: 1.2rem;
-                padding: 1rem 4%;
+                gap: 8px;
+                padding: 12px 3%;
                 flex-wrap: wrap;
             }
-            .card {
-                padding: 1.4rem;
+            .nav-capsule {
+                padding: 6px 14px;
+                font-size: 0.82rem;
+            }
+            .present-card {
+                padding: 22px;
             }
         }
     </style>
@@ -434,13 +619,34 @@
     <canvas id="heroCanvas"></canvas>
     <div class="canvas-overlay"></div>
 
-    <!-- Navigation -->
+    <!-- Completely Transparent Nav with Capsule Buttons -->
     <nav>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
+        <a href="#about" class="nav-capsule">About</a>
+        <a href="#skills" class="nav-capsule">Skills</a>
+        <a href="#projects" class="nav-capsule">Projects</a>
+        <a href="#experience" class="nav-capsule">Experience</a>
+        <a href="#education" class="nav-capsule">Education</a>
+
+        <!-- Contact Me Capsule with Hover Dropdown -->
+        <div class="contact-dropdown-container">
+            <div class="nav-capsule contact-btn-trigger">
+                Contact Me ▾
+            </div>
+            <div class="dropdown-menu">
+                <!-- Primary: LinkedIn -->
+                <a href="https://linkedin.com/in/adarshgandla" target="_blank" class="primary-link">
+                    <span>💼</span> LinkedIn (Primary)
+                </a>
+                <!-- Email -->
+                <a href="mailto:adarshgandla.tab@gmail.com?subject=Connecting%20via%20your%20Portfolio&body=Hi%20Adarsh,%0A%0AI%20came%20across%20your%20portfolio%20website%20and%20wanted%20to%20reach%20out." class="secondary-link">
+                    <span>✉️</span> Mail Me
+                </a>
+                <!-- GitHub -->
+                <a href="https://github.com/adarsh-gandla" target="_blank" class="secondary-link">
+                    <span>💻</span> GitHub
+                </a>
+            </div>
+        </div>
     </nav>
 
     <!-- Header / Bio Section -->
@@ -597,14 +803,26 @@
         </section>
     </div>
 
+    <!-- Final Hero Artwork Showcase with Floating Glass Contact Present -->
+    <div class="hero-art-showcase">
+        <div class="present-card">
+            <h4>Let's Build Something Impactful</h4>
+            <p>Ready to discuss computational intelligence, machine learning engineering, or software architecture opportunities.</p>
+            <div class="present-links">
+                <a href="https://linkedin.com/in/adarshgandla" target="_blank" class="present-btn present-btn-primary">Connect on LinkedIn</a>
+                <a href="mailto:adarshgandla.tab@gmail.com?subject=Opportunity%20Discussion&body=Hi%20Adarsh,%0A%0AI%20am%20reaching%20out%20regarding%20an%20opportunity." class="present-btn present-btn-secondary">Send Email</a>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 Adarsh G. All Rights Reserved.</p>
     </footer>
 
     <script>
         // --- 1. CONFIGURATION & BACKGROUND FRAME SCRUBBING ---
-        const TOTAL_FRAMES = 83; // 82 numbered frames + 1 Frame-L
-        const HOLD_BUFFER = 20;  // Virtual steps to hold the final hero pose at the bottom
+        const TOTAL_FRAMES = 83; // 82 numeric + 1 Frame-L
+        const HOLD_BUFFER = 28;  // Virtual steps to hold the final hero pose at the bottom
         const VIRTUAL_TOTAL = TOTAL_FRAMES + HOLD_BUFFER;
 
         // Points inside the 'Frames/' directory on GitHub
