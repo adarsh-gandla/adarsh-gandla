@@ -59,23 +59,35 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            background: radial-gradient(circle at center, rgba(5, 5, 8, 0.1) 0%, rgba(5, 5, 8, 0.5) 100%);
+            background: radial-gradient(circle at center, rgba(5, 5, 8, 0.08) 0%, rgba(5, 5, 8, 0.5) 100%);
             pointer-events: none;
         }
 
-        /* Top Transparent Bar with Capsule Pill Buttons */
+        /* Top Bar Layout: Left placeholder, Center Nav, Right Actions */
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            padding: 18px 5%;
+            padding: 16px 4%;
             position: sticky;
             top: 0;
             width: 100%;
             z-index: 100;
             background: transparent;
             border: none;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
         }
 
         .nav-capsule {
@@ -91,6 +103,7 @@
             -webkit-backdrop-filter: blur(6px);
             backdrop-filter: blur(6px);
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
         }
 
         .nav-capsule:hover {
@@ -101,7 +114,73 @@
             box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
         }
 
-        /* Top Contact Me Capsule Dropdown */
+        /* Top-Right Real Profile Hover Badge */
+        .profile-badge-wrapper {
+            position: relative;
+            z-index: 110;
+        }
+
+        .profile-avatar-thumb {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(168, 85, 247, 0.6);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            display: block;
+        }
+
+        .profile-avatar-thumb:hover {
+            transform: scale(1.08);
+            border-color: #ffffff;
+        }
+
+        /* Floating Big Image Preview on Hover */
+        .profile-popover {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.9) translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 120;
+            background: rgba(10, 10, 20, 0.85);
+            padding: 8px;
+            border-radius: 20px;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(168, 85, 247, 0.3);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            text-align: center;
+        }
+
+        .profile-badge-wrapper:hover .profile-popover {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+        }
+
+        .profile-popover img {
+            width: 150px;
+            height: 150px;
+            border-radius: 16px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .profile-popover span {
+            display: block;
+            margin-top: 6px;
+            font-size: 0.78rem;
+            color: #c084fc;
+            font-weight: 500;
+        }
+
+        /* Top-Right Contact Me Capsule & Dropdown */
         .contact-dropdown-container {
             position: relative;
             display: inline-block;
@@ -109,18 +188,19 @@
 
         .contact-btn-trigger {
             cursor: pointer;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(168, 85, 247, 0.3));
-            border: 1px solid rgba(168, 85, 247, 0.55);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(168, 85, 247, 0.4));
+            border: 1px solid rgba(168, 85, 247, 0.6);
             color: #ffffff;
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 6px;
+            padding: 8px 20px;
         }
 
         .contact-btn-trigger:hover {
-            box-shadow: 0 4px 18px rgba(99, 102, 241, 0.5);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(168, 85, 247, 0.45));
+            box-shadow: 0 4px 18px rgba(168, 85, 247, 0.5);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(168, 85, 247, 0.55));
         }
 
         .dropdown-menu {
@@ -128,7 +208,7 @@
             top: calc(100% + 10px);
             right: 0;
             min-width: 190px;
-            background: rgba(10, 10, 18, 0.85);
+            background: rgba(10, 10, 18, 0.88);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
             padding: 8px;
@@ -182,57 +262,24 @@
             background: rgba(255, 255, 255, 0.06);
         }
 
-        /* Hero / Header Section */
+        /* Header / Hero Section - Positioned comfortably above the t-shirt collar */
         header {
-            min-height: 80vh;
+            min-height: 52vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
             text-align: center;
-            padding: 60px 5% 40px;
+            padding: 20px 5% 35px;
             position: relative;
             z-index: 10;
-        }
-
-        .profile-container {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .profile-container::after {
-            content: "";
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            background: var(--accent-gradient);
-            z-index: 0;
-            filter: blur(12px);
-            opacity: 0.8;
-            animation: pulse 4s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.5; transform: scale(0.98); }
-            100% { opacity: 0.9; transform: scale(1.02); }
-        }
-
-        header img {
-            position: relative;
-            z-index: 1;
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
         }
 
         header h1 {
             font-size: clamp(2.4rem, 5vw, 4.2rem);
             font-weight: 800;
             line-height: 1.15;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .gradient-text {
@@ -251,10 +298,10 @@
 
         header h2 {
             color: #f1f5f9;
-            font-size: clamp(1rem, 1.8vw, 1.25rem);
+            font-size: clamp(0.95rem, 1.8vw, 1.2rem);
             font-weight: 400;
             max-width: 750px;
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.6rem;
             line-height: 1.5;
             text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
@@ -289,7 +336,7 @@
             color: #ffffff;
         }
 
-        /* Content Container */
+        /* Content Container - Cards glide directly over chest */
         .container {
             width: 100%;
             max-width: min(1100px, 90vw);
@@ -334,7 +381,6 @@
             border-radius: 3px;
         }
 
-        /* Glass Cards */
         section > p {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
@@ -450,7 +496,6 @@
             margin-bottom: 12px;
         }
 
-        /* Skill Pill Tags */
         .tag {
             display: inline-block;
             background: var(--pill-bg);
@@ -497,9 +542,9 @@
             color: white;
         }
 
-        /* --- FINAL HERO ART SHOWCASE & FLOATING PRESENT CARD --- */
+        /* Final Art Showcase Buffer */
         .hero-art-showcase {
-            min-height: 75vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -509,7 +554,6 @@
             z-index: 10;
         }
 
-        /* Fully transparent by default; frosty readable blur on hover */
         .present-card {
             background: rgba(5, 5, 10, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -597,18 +641,30 @@
             z-index: 10;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             nav {
-                gap: 8px;
-                padding: 12px 3%;
                 flex-wrap: wrap;
+                gap: 10px;
+                padding: 12px 4%;
+            }
+            .nav-center {
+                order: 2;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 6px;
+                margin-top: 6px;
+            }
+            .nav-right {
+                order: 1;
+                margin-left: auto;
             }
             .nav-capsule {
-                padding: 6px 14px;
-                font-size: 0.82rem;
+                padding: 5px 12px;
+                font-size: 0.8rem;
             }
-            .present-card {
-                padding: 22px;
+            header {
+                min-height: 40vh;
             }
         }
     </style>
@@ -619,42 +675,49 @@
     <canvas id="heroCanvas"></canvas>
     <div class="canvas-overlay"></div>
 
-    <!-- Completely Transparent Nav with Capsule Buttons -->
+    <!-- Navigation Bar -->
     <nav>
-        <a href="#about" class="nav-capsule">About</a>
-        <a href="#skills" class="nav-capsule">Skills</a>
-        <a href="#projects" class="nav-capsule">Projects</a>
-        <a href="#experience" class="nav-capsule">Experience</a>
-        <a href="#education" class="nav-capsule">Education</a>
+        <!-- Center Menu Capsule Links -->
+        <div class="nav-center">
+            <a href="#about" class="nav-capsule">About</a>
+            <a href="#skills" class="nav-capsule">Skills</a>
+            <a href="#projects" class="nav-capsule">Projects</a>
+            <a href="#experience" class="nav-capsule">Experience</a>
+            <a href="#education" class="nav-capsule">Education</a>
+        </div>
 
-        <!-- Contact Me Capsule with Hover Dropdown -->
-        <div class="contact-dropdown-container">
-            <div class="nav-capsule contact-btn-trigger">
-                Contact Me ▾
+        <!-- Top-Right Actions: Standalone Contact Dropdown + Hover Profile Badge -->
+        <div class="nav-right">
+            <div class="contact-dropdown-container">
+                <div class="nav-capsule contact-btn-trigger">
+                    Contact Me ▾
+                </div>
+                <div class="dropdown-menu">
+                    <a href="https://linkedin.com/in/adarshgandla" target="_blank" class="primary-link">
+                        <span>💼</span> LinkedIn (Primary)
+                    </a>
+                    <a href="mailto:adarshgandla.tab@gmail.com?subject=Connecting%20via%20your%20Portfolio&body=Hi%20Adarsh,%0A%0AI%20came%20across%20your%20portfolio%20website%20and%20wanted%20to%20reach%20out." class="secondary-link">
+                        <span>✉️</span> Mail Me
+                    </a>
+                    <a href="https://github.com/adarsh-gandla" target="_blank" class="secondary-link">
+                        <span>💻</span> GitHub
+                    </a>
+                </div>
             </div>
-            <div class="dropdown-menu">
-                <!-- Primary: LinkedIn -->
-                <a href="https://linkedin.com/in/adarshgandla" target="_blank" class="primary-link">
-                    <span>💼</span> LinkedIn (Primary)
-                </a>
-                <!-- Email -->
-                <a href="mailto:adarshgandla.tab@gmail.com?subject=Connecting%20via%20your%20Portfolio&body=Hi%20Adarsh,%0A%0AI%20came%20across%20your%20portfolio%20website%20and%20wanted%20to%20reach%20out." class="secondary-link">
-                    <span>✉️</span> Mail Me
-                </a>
-                <!-- GitHub -->
-                <a href="https://github.com/adarsh-gandla" target="_blank" class="secondary-link">
-                    <span>💻</span> GitHub
-                </a>
+
+            <!-- Profile Badge with hover preview -->
+            <div class="profile-badge-wrapper">
+                <img src="profile.jpeg" alt="Adarsh G" class="profile-avatar-thumb">
+                <div class="profile-popover">
+                    <img src="profile.jpeg" alt="Adarsh G">
+                    <span>Adarsh G</span>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Header / Bio Section -->
+    <!-- Header Section (Anchored above t-shirt collar) -->
     <header>
-        <div class="profile-container">
-            <img src="profile.jpeg" alt="Adarsh G">
-        </div>
-        
         <h1><span class="gradient-text">Adarsh G</span></h1>
         <h2>Software Engineer | Machine Learning & Data Science | Computational Intelligence</h2>
         <div class="contact-links">
